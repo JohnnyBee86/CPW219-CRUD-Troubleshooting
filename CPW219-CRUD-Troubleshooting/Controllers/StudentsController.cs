@@ -14,8 +14,8 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
 
         public IActionResult Index()
         {
-            List<Student> products = StudentDb.GetStudents(context);
-            return View();
+            List<Student> students = StudentDb.GetStudents(context);
+            return View(students);
         }
 
         public IActionResult Create()
@@ -24,11 +24,11 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Student p)
+        public async Task<IActionResult> Create(Student p)
         {
             if (ModelState.IsValid)
             {
-                StudentDb.Add(p, context);
+                await StudentDb.Add(p, context);
                 ViewData["Message"] = $"{p.Name} was added!";
                 return View();
             }
@@ -39,11 +39,11 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
 
         public IActionResult Edit(int id)
         {
-            //get the product by id
+            //get the student by id
             Student p = StudentDb.GetStudent(context, id);
 
             //show it on web page
-            return View();
+            return View(p);
         }
 
         [HttpPost]
@@ -52,7 +52,7 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
             if (ModelState.IsValid)
             {
                 StudentDb.Update(context, p);
-                ViewData["Message"] = "Product Updated!";
+                ViewData["Message"] = "Student Updated!";
                 return View(p);
             }
             //return view with errors
