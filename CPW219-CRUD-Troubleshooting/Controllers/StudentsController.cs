@@ -14,8 +14,8 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
 
         public IActionResult Index()
         {
-            List<Student> products = StudentDb.GetStudents(context);
-            return View();
+            List<Student> students = StudentDb.GetStudents(context);
+            return View(students);
         }
 
         public IActionResult Create()
@@ -39,7 +39,7 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
 
         public IActionResult Edit(int id)
         {
-            //get the product by id
+            //get the student by id
             Student p = StudentDb.GetStudent(context, id);
 
             //show it on web page
@@ -52,7 +52,7 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
             if (ModelState.IsValid)
             {
                 StudentDb.Update(context, p);
-                ViewData["Message"] = "Product Updated!";
+                ViewData["Message"] = "Student Updated!";
                 return View(p);
             }
             //return view with errors
